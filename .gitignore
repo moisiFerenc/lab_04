@@ -1,7 +1,12 @@
 # Compiled binaries
 *.out
 *.exe
-build/
+feladat_01
+feladat_02
+feladat_03
+feladat_04
+feladat_05
+feladat_06
 
 # Object files
 *.o

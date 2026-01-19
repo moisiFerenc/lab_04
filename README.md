@@ -58,62 +58,80 @@ sudo apt-get install build-essential valgrind gdb
 
 ## Forditasi utmutato
 
-### Osszes feladat forditasa:
+### Alapveto forditas:
 
 ```bash
-make all
+# Feladat 01 - Race condition
+gcc -Wall -Wextra -pthread -g feladat_01/starter.c -o feladat_01
+
+# Feladat 02 - Mutex
+gcc -Wall -Wextra -pthread -g feladat_02/starter.c -o feladat_02
+
+# Feladat 03 - Parhuzamos kereses
+gcc -Wall -Wextra -pthread -g feladat_03/starter.c -o feladat_03
+
+# Feladat 04 - Memory leak (buggy verzio)
+gcc -Wall -Wextra -g feladat_04/buggy.c -o feladat_04
+
+# Feladat 05 - Realloc
+gcc -Wall -Wextra -g feladat_05/starter.c -o feladat_05
+
+# Feladat 06 - Segfault (buggy verzio)
+gcc -Wall -Wextra -g feladat_06/buggy.c -o feladat_06
 ```
 
-### Egyedi feladat forditasa:
+### Futtatás:
 
 ```bash
-make feladat_01
-make feladat_02
+./feladat_01
+./feladat_04
 # stb.
-```
-
-### Tisztitas:
-
-```bash
-make clean
 ```
 
 ### Valgrind futtatasa:
 
 ```bash
-make valgrind_04
-make valgrind_05
-# stb.
+valgrind --leak-check=full ./feladat_04
+valgrind --leak-check=full ./feladat_05
+valgrind ./feladat_06
 ```
 
 ## Altalanos tanacsok
 
 1. **Mindig forditsd `-Wall -Wextra` flagekkel** - Sok hibat mar forditas kozben elkap
 2. **Hasznald a `-g` flaget** - Debug informaciokat ad a binarishoz
-3. **Valgrind legyen a baratod** - Futtasd le minden memoriat hasznalo programon
-4. **Race condition-ok nehezen reprodukalhatoak** - Ha egyszer jo az eredmeny, az meg nem jelenti, hogy helyes a kod
-5. **Olvass el minden valgrind hibauzenetet** - Pontosan megmondja, hol van a problema
+3. **Thread programoknal `-pthread` kell** - Feladat 01, 02, 03
+4. **Valgrind legyen a baratod** - Futtasd le minden memoriat hasznalo programon
+5. **Race condition-ok nehezen reprodukalhatoak** - Ha egyszer jo az eredmeny, az meg nem jelenti, hogy helyes a kod
+6. **Olvass el minden valgrind hibauzenetet** - Pontosan megmondja, hol van a problema
 
 ## Hasznos parancsok
 
-### Program futtatasa valgrind-dal:
+### Program futtatasa valgrind-dal (memory leak kereses):
 
 ```bash
 valgrind --leak-check=full ./feladat_04
 ```
 
-### Program futtatasa GDB-vel:
+### Program futtatasa GDB-vel (segfault debug):
 
 ```bash
 gdb ./feladat_06
 (gdb) run
 (gdb) backtrace
+(gdb) quit
 ```
 
-### Thread hibak kereses:
+### Thread hibak kereses (race condition):
 
 ```bash
 valgrind --tool=helgrind ./feladat_01
+```
+
+### Binaris torlese:
+
+```bash
+rm feladat_01 feladat_02 feladat_03 feladat_04 feladat_05 feladat_06
 ```
 
 ## Tovbbi dokumentacio
